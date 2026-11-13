@@ -36,4 +36,67 @@ public class TarjetaCredito {
 		this.credito = credito;
 		this.bloqueada = bloqueada;		
 	}
+	
+	/**
+	 * @return el nombre del titular de la tarjeta
+	 */
+	
+	public String getNombre() {
+		String copiaNombre = this.nombre;
+		return copiaNombre;
+	}
+	
+	/**
+	 * @return el numero de la tarjeta
+	 */
+	
+	public String getNumeroTarjeta() {
+		String copiaNum = this.numeroTarjeta;
+		return copiaNum;
+	}
+	
+	/**
+	 * @return la fecha en la que expira la tarjeta
+	 */
+	
+	public String getFechaExpiracion() {
+		String copiaFecha = this.fechaExpiracion;
+		return copiaFecha;
+	}
+	
+	/**
+	 * @return el cvc de la tarjeta
+	 */
+	
+	public int getCvc() {
+		int copiaCvc = this.cvc;
+		return copiaCvc;
+	}
+	
+	/**
+	 * @return el saldo de la tarjeta
+	 */
+	
+	public int getSaldo() {
+		int copiaSaldo = this.saldo;
+		return copiaSaldo;
+	}
+	
+	/**
+	 * @return el credito de la tarjeta
+	 */
+	
+	public int getCredito() {
+		int copiaCredito = this.credito;
+		return copiaCredito;
+	}
+	
+	/**
+	 * @return el estado de la tarjeta. {@code True} si está bloqueada y {@code false} si no lo está
+	 */
+	
+	public boolean estaBloqueada() {
+		boolean copiaEstado = this.bloqueada;
+		return copiaEstado;
+	}
 }
