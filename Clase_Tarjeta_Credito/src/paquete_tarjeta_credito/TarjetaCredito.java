@@ -164,4 +164,39 @@ public class TarjetaCredito {
 	private void setBloqueada(boolean estado) {
 		this.bloqueada = estado;
 	}
+	
+	/**
+	 * Implementación del método 'equals()' (sobreescrito) para la clase Tarjeta de Crédito
+	 * 
+	 * Nota : una tarjeta de crédito se considera igual a otra si tienen el mismo número de tarjeta
+	 * @param obj el objeto que se va a comparar
+	 * @return {@code true} si son iguales y {@code false} si no lo son
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		TarjetaCredito otraTarjeta = (TarjetaCredito) obj;
+		if (otraTarjeta.getNumeroTarjeta().equals(this.getNumeroTarjeta())) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Método que devuelve una representación de la tarjeta de crédito en una cadena de texto
+	 * 
+	 * @return la cadena de texto con la representación de la tarjeta
+	 */
+	@Override
+	public String toString() {
+		return "TarjetaCredito [nombre = " + this.getNombre() + ", numero de tarjeta = " + this.getNumeroTarjeta() + ", fecha expiracion = " + this.getFechaExpiracion() + ", cvc = " + this.getCvc() + ", saldo = " + this.getSaldo() + ", credito = " + this.getCredito() + ", bloqueada = " + this.estaBloqueada() + "]";
+	}
 }
