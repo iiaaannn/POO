@@ -25,9 +25,36 @@ public class TarjetaCredito {
 	 * @param saldo : saldo disponible de la tarjeta
 	 * @param credito : cantidad que puedes gastar en un pago
 	 * @param bloqueada : estado de la tarjeta
+	 * @throws IllegalArgumentException si {@code nombre}, {@code numeroTarjeta} o {@code fechaExpiracion} es nulo o vacío.
+	 * @throws IllegalArgumentException si {@code cvc} no está entre 0 y 999
+	 * @throws IllegalArgumentException si {@code saldo} es menor que 0 o {@code credito} no es mayor que 0
 	 */
 	
 	public TarjetaCredito(String nombre, String numeroTarjeta, String fechaExpiracion, int cvc, int saldo, int credito, boolean bloqueada) {
+		if (nombre == null || nombre.trim().isEmpty()) {
+			throw new IllegalArgumentException("El nombre no puede ser nulo ni vacío");
+		}
+		
+		if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
+			throw new IllegalArgumentException("El número de la tarjeta no puede ser nulo ni vacío");
+		}
+		
+		if (fechaExpiracion == null || fechaExpiracion.trim().isEmpty()) {
+			throw new IllegalArgumentException("La fecha de expiración no puede ser nula ni vacía");
+		}
+		
+		if (cvc < 0 || cvc > 999) {
+			throw new IllegalArgumentException("El cvc tiene que estar entre 0 y 999");
+		}
+		
+		if (saldo < 0) {
+			throw new IllegalArgumentException("El saldo no puede ser negativo");
+		}
+		
+		if (credito <= 0) {
+			throw new IllegalArgumentException("El credito tiene que ser mayor que 0");
+		}
+		
 		this.nombre = nombre;
 		this.numeroTarjeta = numeroTarjeta;
 		this.fechaExpiracion = fechaExpiracion;
@@ -92,7 +119,7 @@ public class TarjetaCredito {
 	}
 	
 	/**
-	 * @return el estado de la tarjeta. {@code True} si está bloqueada y {@code false} si no lo está
+	 * @return el estado de la tarjeta. {@code true} si está bloqueada y {@code false} si no lo está
 	 */
 	
 	public boolean estaBloqueada() {
