@@ -11,8 +11,8 @@ public class TarjetaCredito {
 	private String numeroTarjeta;
 	private String fechaExpiracion;
 	private int cvc;
-	private int saldo;
-	private int credito;
+	private double saldo;
+	private double credito;
 	private boolean bloqueada;
 	
 	/**
@@ -30,7 +30,7 @@ public class TarjetaCredito {
 	 * @throws IllegalArgumentException si {@code saldo} es menor que 0 o {@code credito} no es mayor que 0
 	 */
 	
-	public TarjetaCredito(String nombre, String numeroTarjeta, String fechaExpiracion, int cvc, int saldo, int credito, boolean bloqueada) {
+	public TarjetaCredito(String nombre, String numeroTarjeta, String fechaExpiracion, int cvc, double saldo, double credito, boolean bloqueada) {
 		if (nombre == null || nombre.trim().isEmpty()) {
 			throw new IllegalArgumentException("El nombre no puede ser nulo ni vacío");
 		}
@@ -64,7 +64,13 @@ public class TarjetaCredito {
 		this.bloqueada = bloqueada;		
 	}
 	
+	// Falta implementar el constructor por copia
+	
+	// <--- Getters --->
+	
 	/**
+	 * Permite acceder al atributo nombre del titular de la tarjeta
+	 * 
 	 * @return el nombre del titular de la tarjeta
 	 */
 	
@@ -74,6 +80,8 @@ public class TarjetaCredito {
 	}
 	
 	/**
+	 * Permite acceder al atributo numero de la tarjeta
+	 * 
 	 * @return el numero de la tarjeta
 	 */
 	
@@ -83,6 +91,8 @@ public class TarjetaCredito {
 	}
 	
 	/**
+	 * Permite acceder al atributo fecha de expiración de la tarjeta
+	 * 
 	 * @return la fecha en la que expira la tarjeta
 	 */
 	
@@ -92,6 +102,8 @@ public class TarjetaCredito {
 	}
 	
 	/**
+	 * Permite acceder al atributo cvc de la tarjeta
+	 * 
 	 * @return el cvc de la tarjeta
 	 */
 	
@@ -101,29 +113,55 @@ public class TarjetaCredito {
 	}
 	
 	/**
+	 * Permite acceder al atributo saldo de la tarjeta
+	 * 
 	 * @return el saldo de la tarjeta
 	 */
 	
-	public int getSaldo() {
-		int copiaSaldo = this.saldo;
+	public double getSaldo() {
+		double copiaSaldo = this.saldo;
 		return copiaSaldo;
 	}
 	
 	/**
+	 * Permite acceder al atributo crédito de la tarjeta
+	 * 
 	 * @return el credito de la tarjeta
 	 */
 	
-	public int getCredito() {
-		int copiaCredito = this.credito;
+	public double getCredito() {
+		double copiaCredito = this.credito;
 		return copiaCredito;
 	}
 	
 	/**
+	 * Permite acceder al atributo estado de la tarjeta
+	 * 
 	 * @return el estado de la tarjeta. {@code true} si está bloqueada y {@code false} si no lo está
 	 */
 	
 	public boolean estaBloqueada() {
 		boolean copiaEstado = this.bloqueada;
 		return copiaEstado;
+	}
+	
+	// <--- Setters --->
+	
+	private void setSaldo(int saldo) {
+		if (saldo < 0) {
+			throw new IllegalArgumentException("El saldo no puede ser negativo");
+		}
+		this.saldo = saldo;
+	}
+	
+	private void setCredito(int credito) {
+		if (credito <= 0) {
+			throw new IllegalArgumentException("El crédito no puede ser ni negativo ni nulo");
+		}
+		this.credito = credito;
+	}
+	
+	private void setBloqueada(boolean estado) {
+		this.bloqueada = estado;
 	}
 }
