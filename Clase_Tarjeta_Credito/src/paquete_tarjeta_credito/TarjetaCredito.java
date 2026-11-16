@@ -6,6 +6,26 @@ package paquete_tarjeta_credito;
  * @author Ian Andrés Zapatero
  */
 
+
+	/*
+	 * Pasos para crear una clase (buena) en POO (primer ejercicio) : 
+	 * 
+	 * 1º : definir los atributos del objetos
+	 * 2º : hacer los getters y setter (los getters sólo para los atributos que se puedan modificar, los getters tienen que estar en todos los atributos)
+	 * 3º : toString() e equals() con un override
+	 * 4º : NUNCA USAS THIS FUERA DEL CONSTRUCTOR (a no ser que el atributo y el parámetro se llamen igual)
+	 * 5º : Javadoc 
+	 * 
+	 * Cosas importantes :
+	 * 
+	 * - La palabra reservada "static" SÓLO se usa en atributos (que no queremos que cambien en tiempo de ejecución, como constantes). En métodos nunca se usan
+	 * - Está prohibido usar "getClass()". Hay que craftearnos nuestro propio "equals()" a mano, mirando atributo por atributo.
+	 * - usar "this" cuando no hace falta resta bastante
+	 * - NUNCA acceder a un atributo privado con un this.atributo. Siempre hay que usar un método get (sobretodo en la clase de la práctica, que había un método donde ocurría eso)
+	 * - en los métodos "getters" se devuelve una COPIA del atributo privado, no el atributo como tal
+	 * - TODOS los atributos son privados en POO
+	 */
+
 public class TarjetaCredito {
 	private String nombre;
 	private String numeroTarjeta;
@@ -64,7 +84,21 @@ public class TarjetaCredito {
 		this.bloqueada = bloqueada;		
 	}
 	
-	// Falta implementar el constructor por copia
+	/**
+	 * Constructor por copia de la clase TarjetaCredito
+	 * 
+	 * @param tarjeta : objeto de tipo TarjetaCredito de donde se obtendrán los atributos
+	 */
+	
+	public TarjetaCredito(TarjetaCredito tarjeta) {
+		nombre = tarjeta.getNombre();
+		numeroTarjeta = tarjeta.getNumeroTarjeta();
+		fechaExpiracion = tarjeta.getFechaExpiracion();
+		cvc = tarjeta.getCvc();
+		saldo = tarjeta.getSaldo();
+		credito = tarjeta.getCredito();
+		bloqueada = tarjeta.isBloqueada();
+	}
 	
 	// <--- Getters --->
 	
@@ -75,7 +109,7 @@ public class TarjetaCredito {
 	 */
 	
 	public String getNombre() {
-		String copiaNombre = this.nombre;
+		String copiaNombre = nombre;
 		return copiaNombre;
 	}
 	
@@ -86,7 +120,7 @@ public class TarjetaCredito {
 	 */
 	
 	public String getNumeroTarjeta() {
-		String copiaNum = this.numeroTarjeta;
+		String copiaNum = numeroTarjeta;
 		return copiaNum;
 	}
 	
@@ -97,7 +131,7 @@ public class TarjetaCredito {
 	 */
 	
 	public String getFechaExpiracion() {
-		String copiaFecha = this.fechaExpiracion;
+		String copiaFecha = fechaExpiracion;
 		return copiaFecha;
 	}
 	
@@ -108,7 +142,7 @@ public class TarjetaCredito {
 	 */
 	
 	public int getCvc() {
-		int copiaCvc = this.cvc;
+		int copiaCvc = cvc;
 		return copiaCvc;
 	}
 	
@@ -119,7 +153,7 @@ public class TarjetaCredito {
 	 */
 	
 	public double getSaldo() {
-		double copiaSaldo = this.saldo;
+		double copiaSaldo = saldo;
 		return copiaSaldo;
 	}
 	
@@ -130,7 +164,7 @@ public class TarjetaCredito {
 	 */
 	
 	public double getCredito() {
-		double copiaCredito = this.credito;
+		double copiaCredito = credito;
 		return copiaCredito;
 	}
 	
@@ -140,21 +174,21 @@ public class TarjetaCredito {
 	 * @return el estado de la tarjeta. {@code true} si está bloqueada y {@code false} si no lo está
 	 */
 	
-	public boolean estaBloqueada() {
-		boolean copiaEstado = this.bloqueada;
+	public boolean isBloqueada() {
+		boolean copiaEstado = bloqueada;
 		return copiaEstado;
 	}
 	
 	// <--- Setters --->
 	
-	private void setSaldo(int saldo) {
+	private void setSaldo(double saldo) {
 		if (saldo < 0) {
 			throw new IllegalArgumentException("El saldo no puede ser negativo");
 		}
 		this.saldo = saldo;
 	}
 	
-	private void setCredito(int credito) {
+	private void setCredito(double credito) {
 		if (credito <= 0) {
 			throw new IllegalArgumentException("El crédito no puede ser ni negativo ni nulo");
 		}
@@ -162,7 +196,7 @@ public class TarjetaCredito {
 	}
 	
 	private void setBloqueada(boolean estado) {
-		this.bloqueada = estado;
+		bloqueada = estado;
 	}
 	
 	/**
@@ -174,17 +208,11 @@ public class TarjetaCredito {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		TarjetaCredito tarjeta = (TarjetaCredito) obj;
+		if (tarjeta == null) {
 			return false;
 		}
-		if (obj == this) {
-			return true;
-		}
-		if (this.getClass() != obj.getClass()) {
-			return false;
-		}
-		TarjetaCredito otraTarjeta = (TarjetaCredito) obj;
-		if (otraTarjeta.getNumeroTarjeta().equals(this.getNumeroTarjeta())) {
+		if (getNombre() == tarjeta.getNombre() && getNumeroTarjeta() == tarjeta.getNumeroTarjeta() && getFechaExpiracion() == tarjeta.getFechaExpiracion() && getCvc() == tarjeta.getCvc() && getSaldo() == tarjeta.getSaldo() && getCredito() == tarjeta.getCredito() && isBloqueada() == tarjeta.isBloqueada()) {
 			return true;
 		}
 		return false;
@@ -197,6 +225,30 @@ public class TarjetaCredito {
 	 */
 	@Override
 	public String toString() {
-		return "TarjetaCredito [nombre = " + this.getNombre() + ", numero de tarjeta = " + this.getNumeroTarjeta() + ", fecha expiracion = " + this.getFechaExpiracion() + ", cvc = " + this.getCvc() + ", saldo = " + this.getSaldo() + ", credito = " + this.getCredito() + ", bloqueada = " + this.estaBloqueada() + "]";
+		return "TarjetaCredito [nombre = " + getNombre() + ", numero de tarjeta = " + getNumeroTarjeta() + ", fecha expiracion = " + getFechaExpiracion() + ", cvc = " + getCvc() + ", saldo = " + getSaldo() + ", credito = " + getCredito() + ", bloqueada = " + isBloqueada() + "]";
+	}
+	
+	/**
+	 * Método que permite retirar dinero de la tarjeta de crédito
+	 * 
+	 * @param dinero que se va a retirar
+	 * @throws {@code IllegalArgumentException} si el dinero es menor que 0.0 o supera el límite de crédito
+	 * @throws {@code IllegalStateException} si la tarjeta está bloqueada o el dinero supera el dinero que tiene la tarjeta
+	 */
+	
+	public void retirarDinero(double dinero) {
+		if (dinero <= 0.0) {
+			throw new IllegalArgumentException("El dinero no puede ser negativo ni nulo");
+		}
+		if (isBloqueada()) {
+			throw new IllegalStateException("La tarjeta está bloqueada, no se puede retirar dinero");
+		}
+		if (getCredito() < dinero) {
+			throw new IllegalArgumentException("El dinero de la operación es superior al crédito máximo que puedes gastar");
+		}
+		if (getSaldo() - dinero < 0.0) {
+			throw new IllegalStateException("El dinero queda en negativo");
+		}
+		setSaldo(getSaldo() - dinero);
 	}
 }
