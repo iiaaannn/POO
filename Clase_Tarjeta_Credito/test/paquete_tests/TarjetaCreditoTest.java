@@ -142,4 +142,85 @@ public class TarjetaCreditoTest {
 		tarjeta.retirarDinero(10.0);
 		assertEquals(13.5, tarjeta.getSaldo(), ERROR_ADMISIBLE);
 	}
+	
+	// <--- Casos no válidos --->
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorInvalidoNombreNulo() {
+		new TarjetaCredito(null, "12345", "11/03", 999, 23.5, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class) 
+	public void testConstructorInvalidoNombreVacio() {
+		new TarjetaCredito("", "12345", "11/03", 999, 23.5, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorNumeroNulo() {
+		new TarjetaCredito("Ian", null, "11/03", 999, 23.5, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorNumeroVacio() {
+		new TarjetaCredito("Ian", "", "11/03", 999, 23.5, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorInvalidoFechaNula() {
+		new TarjetaCredito("Ian", "12345", null, 999, 23.5, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorInvalidoFechaVacia() {
+		new TarjetaCredito("Ian", "12345", "", 999, 23.5, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorInvalidoCvcNegativo() {
+		new TarjetaCredito("Ian", "12345", "11/03", -1, 23.5, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorInvalidoCvcMayorQue999() {
+		new TarjetaCredito("Ian", "12345", "11/03", 1000, 23.5, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorInvalidoSaldoNegativo() {
+		new TarjetaCredito("Ian", "12345", "11/03", 999, -1.0, 10.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorInvalidoCreditoNulo() {
+		new TarjetaCredito("Ian", "12345", "11/03", 999, 23.5, 0.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testConstructorInvalidoCreditoNegativo() {
+		new TarjetaCredito("Ian", "12345", "11/03", 999, 23.5, -1.0, false);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testRetirarDineroNegativo() {
+		TarjetaCredito tarjeta = new TarjetaCredito("Ian", "12345", "11/03", 999, 23.5, 10.0, false);
+		tarjeta.retirarDinero(-1.0);
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testRetirarDineroMayorQueCredito() {
+		TarjetaCredito tarjeta = new TarjetaCredito("Ian", "12345", "11/03", 999, 23.5, 10.0, false);
+		tarjeta.retirarDinero(11.0);
+	}
+	
+	@Test (expected=IllegalStateException.class)
+	public void testRetirarDineroConTarjetaBloqueada() {
+		TarjetaCredito tarjeta = new TarjetaCredito("Ian", "12345", "11/03", 999, 23.5, 10.0, true);
+		tarjeta.retirarDinero(1.0);
+	}
+	
+	@Test (expected=IllegalStateException.class)
+	public void retirarDineroMasDelQueTieneTarjeta() {
+		TarjetaCredito tarjeta = new TarjetaCredito("Ian", "12345", "11/03", 999, 1.0, 10.0, false);
+		tarjeta.retirarDinero(2.0);
+	}
 }
