@@ -202,16 +202,15 @@ public class TarjetaCredito {
 	/**
 	 * Implementación del método 'equals()' (sobreescrito) para la clase Tarjeta de Crédito
 	 * 
-	 * Nota : una tarjeta de crédito se considera igual a otra si tienen el mismo número de tarjeta
 	 * @param obj el objeto que se va a comparar
 	 * @return {@code true} si son iguales y {@code false} si no lo son
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		TarjetaCredito tarjeta = (TarjetaCredito) obj;
-		if (tarjeta == null) {
+		if (obj == null) {
 			return false;
 		}
+		TarjetaCredito tarjeta = (TarjetaCredito) obj;
 		if (getNombre() == tarjeta.getNombre() && getNumeroTarjeta() == tarjeta.getNumeroTarjeta() && getFechaExpiracion() == tarjeta.getFechaExpiracion() && getCvc() == tarjeta.getCvc() && getSaldo() == tarjeta.getSaldo() && getCredito() == tarjeta.getCredito() && isBloqueada() == tarjeta.isBloqueada()) {
 			return true;
 		}

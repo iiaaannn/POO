@@ -9,11 +9,14 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 	/**
+	 * Que un test sea de caja negra significa que implementamos los tests sin mirar el código del método. Solamente fijándonos en el javadoc y lo que pide el método como argumentos
+	 * 
 	 * - Sólo debemos hacer tests de los métodos públicos. En este caso, como los setters son 
 	 * privados, no debemos hacer test de ellos.
 	 * - el error admisible sólo se pone para double/float
 	 * - en los "assertEquals()" siempre va primero el valor esperado y después el valor que devuelve el método
 	 * - está bien añadir test de casos límites
+	 * - (CREO, hay que revisarlo) que los métodos equals() y toString() no necesitan test de caja negra no válidos 
 	 */
 
 /**
@@ -114,6 +117,19 @@ public class TarjetaCreditoTest {
 		TarjetaCredito tarjeta1 = new TarjetaCredito("Ian", "12345", "11/03", 123, 23.5, 10.0, false);
 		TarjetaCredito tarjeta2 = new TarjetaCredito("Ian", "12345", "11/03", 123, 23.5, 10.0, false);
 		assertTrue(tarjeta1.equals(tarjeta2));
+	}
+	
+	@Test
+	public void testEqualsFalso() {
+		TarjetaCredito tarjeta1 = new TarjetaCredito("Ian", "12345", "11/03", 123, 23.5, 10.0, false);
+		TarjetaCredito tarjeta2 = new TarjetaCredito("a", "12345", "11/03", 123, 23.5, 10.0, false);
+		assertFalse(tarjeta1.equals(tarjeta2));
+	}
+	
+	@Test
+	public void testEqualsNulo() {
+		TarjetaCredito tarjeta1 = new TarjetaCredito("Ian", "12345", "11/03", 123, 23.5, 10.0, false);
+		assertFalse(tarjeta1.equals(null));
 	}
 	
 	@Test
@@ -219,7 +235,7 @@ public class TarjetaCreditoTest {
 	}
 	
 	@Test (expected=IllegalStateException.class)
-	public void retirarDineroMasDelQueTieneTarjeta() {
+	public void testRetirarDineroMasDelQueTieneTarjeta() {
 		TarjetaCredito tarjeta = new TarjetaCredito("Ian", "12345", "11/03", 999, 1.0, 10.0, false);
 		tarjeta.retirarDinero(2.0);
 	}
